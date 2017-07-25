@@ -13,9 +13,16 @@ struct MyData
     var no : Int!
     var name : String!
 }
+/*struct Mydata1
+{
+    var num : Int!
+    var nm : String!
+}*/
+
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 {
     var arr = [MyData]()
+    //var arr1 = [Mydata1]()
     var lmod = false
     
     //@IBOutlet weak var SlideView: UIView!
@@ -39,6 +46,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                MyData(no: 3, name: "Contact Us"),
                MyData(no: 4, name: "Gallery"),
                MyData(no: 5, name: "Help")]
+        
+        /*arr1 = [Mydata1(num: 1, nm: "Feedback"),
+                Mydata1(num: 2, nm: "setting")]*/
         
         BtnFB.layer.borderWidth = 2
         BtnFB.layer.borderColor = UIColor.black.cgColor
@@ -141,6 +151,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        /*if section == 0
+        {
+            return arr.count
+        }
+        else if section == 1
+        {
+            return arr1.count
+        }
+        return 0*/
         return arr.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
