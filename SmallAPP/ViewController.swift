@@ -13,19 +13,18 @@ struct MyData
     var no : Int!
     var name : String!
 }
-/*struct Mydata1
+struct Mydata1
 {
     var num : Int!
     var nm : String!
-}*/
+}
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 {
     var arr = [MyData]()
-    //var arr1 = [Mydata1]()
-    var lmod = false
+    var arr1 = [Mydata1]()
     
-    //@IBOutlet weak var SlideView: UIView!
+    var lmod = false
     
     @IBOutlet weak var SlideView: UIView!
     @IBOutlet weak var LeftConstraints: NSLayoutConstraint!
@@ -36,19 +35,21 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var BtnGgle: UIButton!
     @IBOutlet weak var BtnGmail: UIButton!
     
+    @IBOutlet weak var tableView: UITableView!
+    
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         arr = [MyData(no: 1, name: "Home"),
                MyData(no: 2, name: "About Us"),
                MyData(no: 3, name: "Contact Us"),
                MyData(no: 4, name: "Gallery"),
                MyData(no: 5, name: "Help")]
         
-        /*arr1 = [Mydata1(num: 1, nm: "Feedback"),
-                Mydata1(num: 2, nm: "setting")]*/
+        arr1 = [Mydata1(num: 6, nm: "Feedback"),
+                Mydata1(num: 7, nm: "setting")]
         
         BtnFB.layer.borderWidth = 2
         BtnFB.layer.borderColor = UIColor.black.cgColor
@@ -67,7 +68,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         PopUpView.isHidden = true
     }
-
+    
     @IBAction func LeftClick(_ sender: Any)
     {
         if (lmod)
@@ -147,11 +148,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 1
+        return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        /*if section == 0
+        if section == 0
         {
             return arr.count
         }
@@ -159,38 +160,106 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         {
             return arr1.count
         }
-        return 0*/
-        return arr.count
+        return 0
+        //return arr.count
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+     {
+        if section == 0
+        {
+            return("Menu")
+        }
+        else
+        {
+            return("Help")
+        }
+        return ""
+    }
+    
+    /*func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String?
+    {
+        if section == 0
+        {
+            return("hello")
+        }
+        else
+        {
+            return("wrold")
+        }
+        return ""
+    }*/
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        /*
         let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self, options: nil)?.first as! TableViewCell
         cell.label1.text = arr[indexPath.row].name
+        return cell
+        */
+        
+        let cell = Bundle.main.loadNibNamed("TableViewCell", owner: self, options: nil)?.first as! TableViewCell
+        
+        /*
+        switch (indexPath.section)
+        {
+        case 0:
+            cell.label1.text = arr[indexPath.row].name
+        case 1:
+            cell.label1.text = arr1[indexPath.row].nm
+        default:
+            cell.label1.text = "Other"
+        }
+        */
+        
+        if indexPath.section == 0
+        {
+            cell.label1.text = arr[indexPath.row].name
+        }
+        else
+        {
+            cell.label1.text = arr1[indexPath.row].nm
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        if (indexPath.row == 0)
+        if indexPath.section == 0
         {
-            self.performSegue(withIdentifier: "HomeVC", sender: self)
-        }
-        else if (indexPath.row == 1)
-        {
-            self.performSegue(withIdentifier: "AboutUsVC", sender: self)
-        }
-        else if (indexPath.row == 2)
-        {
-            self.performSegue(withIdentifier: "ContactUsVC", sender: self)
-        }
-        else if (indexPath.row == 3)
-        {
-            self.performSegue(withIdentifier: "GalleryVC", sender: self)
+            if (indexPath.row == 0)
+            {
+                self.performSegue(withIdentifier: "HomeVC", sender: self)
+            }
+            else if (indexPath.row == 1)
+            {
+                self.performSegue(withIdentifier: "AboutUsVC", sender: self)
+            }
+            else if (indexPath.row == 2)
+            {
+                self.performSegue(withIdentifier: "ContactUsVC", sender: self)
+            }
+            else if (indexPath.row == 3)
+            {
+                self.performSegue(withIdentifier: "GalleryVC", sender: self)
+            }
+            else if (indexPath.row == 4)
+            {
+                self.performSegue(withIdentifier: "HelpVC", sender: self)
+            }
         }
         else
         {
-            self.performSegue(withIdentifier: "HelpVC", sender: self)
+            if (indexPath.row == 0)
+            {
+                self.performSegue(withIdentifier: "FeedbackVC", sender: self)
+            }
+            else if (indexPath.row == 1)
+            {
+                self.performSegue(withIdentifier: "SettingVC", sender: self)
+            }
         }
+        
     }
     
     override func didReceiveMemoryWarning()
